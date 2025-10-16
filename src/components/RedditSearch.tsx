@@ -204,9 +204,15 @@ export default function RedditSearch() {
             <div className="text-center py-8">
               <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-500 mb-2">No results found</h3>
-              <p className="text-gray-400">
-                Try different keywords or check the trending topics
+              <p className="text-gray-400 mb-4">
+                Reddit API may be temporarily unavailable or try different keywords
               </p>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-md mx-auto">
+                <p className="text-sm text-blue-800">
+                  💡 <strong>Tip:</strong> Reddit&apos;s API has restrictions on serverless functions. 
+                  Try searching for broader terms or check back later.
+                </p>
+              </div>
             </div>
           ) : (
             <div className="text-center py-8">
