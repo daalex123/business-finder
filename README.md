@@ -1,4 +1,4 @@
-# Business Finder - Web Application
+# Business Finder - Web Application #
 
 A comprehensive Next.js web application that helps you find businesses in any area using Google Maps API and discover business solutions through Reddit community insights.
 
