@@ -27,32 +27,14 @@ export interface Business {
 }
 
 export interface SearchFilters {
+    city: string;
     businessTypes: string[];
     hasWebsite: boolean | null;
     keyword: string;
+    radiusEnabled: boolean;
     radius: number;
     center: {
         lat: number;
         lng: number;
     };
-}
-
-export interface RedditPost {
-    id: string;
-    title: string;
-    selftext: string;
-    author: string;
-    score: number;
-    num_comments: number;
-    created_utc: number;
-    url: string;
-    permalink: string;
-    subreddit: string;
-    thumbnail?: string;
-}
-
-export interface RedditSearchResult {
-    posts: RedditPost[];
-    subreddit: string;
-    query: string;
 }

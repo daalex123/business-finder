@@ -1,6 +1,38 @@
 export const config = {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
-    redditApiUrl: 'https://www.reddit.com/r',
+
+    cities: [
+        { name: 'Colombo', country: 'Sri Lanka', lat: 6.9271, lng: 79.8612 },
+        { name: 'Kandy', country: 'Sri Lanka', lat: 7.2906, lng: 80.6337 },
+        { name: 'Galle', country: 'Sri Lanka', lat: 6.0535, lng: 80.2210 },
+        { name: 'Jaffna', country: 'Sri Lanka', lat: 9.6615, lng: 80.0255 },
+        { name: 'Negombo', country: 'Sri Lanka', lat: 7.2083, lng: 79.8358 },
+        { name: 'New York', country: 'USA', lat: 40.7128, lng: -74.0060 },
+        { name: 'Los Angeles', country: 'USA', lat: 34.0522, lng: -118.2437 },
+        { name: 'Chicago', country: 'USA', lat: 41.8781, lng: -87.6298 },
+        { name: 'London', country: 'UK', lat: 51.5074, lng: -0.1278 },
+        { name: 'Manchester', country: 'UK', lat: 53.4808, lng: -2.2426 },
+        { name: 'Paris', country: 'France', lat: 48.8566, lng: 2.3522 },
+        { name: 'Berlin', country: 'Germany', lat: 52.5200, lng: 13.4050 },
+        { name: 'Dubai', country: 'UAE', lat: 25.2048, lng: 55.2708 },
+        { name: 'Singapore', country: 'Singapore', lat: 1.3521, lng: 103.8198 },
+        { name: 'Tokyo', country: 'Japan', lat: 35.6762, lng: 139.6503 },
+        { name: 'Sydney', country: 'Australia', lat: -33.8688, lng: 151.2093 },
+        { name: 'Melbourne', country: 'Australia', lat: -37.8136, lng: 144.9631 },
+        { name: 'Toronto', country: 'Canada', lat: 43.6532, lng: -79.3832 },
+        { name: 'Mumbai', country: 'India', lat: 19.0760, lng: 72.8777 },
+        { name: 'Delhi', country: 'India', lat: 28.7041, lng: 77.1025 },
+        { name: 'Bangalore', country: 'India', lat: 12.9716, lng: 77.5946 },
+        { name: 'Chennai', country: 'India', lat: 13.0827, lng: 80.2707 },
+        { name: 'Bangkok', country: 'Thailand', lat: 13.7563, lng: 100.5018 },
+        { name: 'Hong Kong', country: 'China', lat: 22.3193, lng: 114.1694 },
+        { name: 'Shanghai', country: 'China', lat: 31.2304, lng: 121.4737 },
+        { name: 'Amsterdam', country: 'Netherlands', lat: 52.3676, lng: 4.9041 },
+        { name: 'Rome', country: 'Italy', lat: 41.9028, lng: 12.4964 },
+        { name: 'Madrid', country: 'Spain', lat: 40.4168, lng: -3.7038 },
+        { name: 'Istanbul', country: 'Turkey', lat: 41.0082, lng: 28.9784 },
+        { name: 'Cairo', country: 'Egypt', lat: 30.0444, lng: 31.2357 },
+    ],
 
     businessTypes: [
         'restaurant', 'cafe', 'bar', 'hotel', 'gas_station', 'pharmacy', 'hospital',
@@ -19,12 +51,6 @@ export const config = {
         'hardware_store', 'lumber_yard', 'garden_center', 'nursery', 'storage', 'rv_park',
         'campground', 'rv_dealer', 'boat_dealer', 'marina', 'airport', 'bus_station',
         'subway_station', 'train_station', 'taxi_stand', 'travel_agency', 'tourist_office'
-    ],
-
-    redditSubreddits: [
-        'entrepreneur', 'smallbusiness', 'startups', 'business', 'marketing',
-        'sales', 'ecommerce', 'freelance', 'consulting', 'investing',
-        'personalfinance', 'FIRE', 'sidehustle', 'passive_income', 'digitalnomad'
     ],
 
     searchRadius: {

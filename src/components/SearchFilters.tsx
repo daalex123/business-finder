@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { SearchFilters as SearchFiltersType } from '@/types/business';
 import { config } from '@/lib/config';
 import { Search, Filter, Globe, Building2 } from 'lucide-react';
 import MultiSelect from './MultiSelect';
+import CitySelect from './CitySelect';
 
 interface SearchFiltersProps {
   filters: SearchFiltersType;
@@ -28,6 +29,16 @@ export default function SearchFilters({
     });
   };
 
+  const handleCitySelect = useCallback(
+    (city: { name: string; lat: number; lng: number }) => {
+      onFiltersChange({
+        ...filters,
+        city: city.name,
+        center: { lat: city.lat, lng: city.lng },
+      });
+    },
+    [filters, onFiltersChange]
+  );
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
@@ -44,24 +55,42 @@ export default function SearchFilters({
         </button>
       </div>
 
+      <div className="mb-4">
+        <CitySelect value={filters.city} onCitySelect={handleCitySelect} />
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
         {/* Radius */}
         <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700">
-            Search Radius: {filters.radius}m
-          </label>
-            <input
-              type="range"
-              min={config.searchRadius.min}
-              max={config.searchRadius.max}
-              step={config.searchRadius.step}
-              value={filters.radius}
-              onChange={(e) => handleFilterChange('radius', parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer text-gray-900"
-            />
+          <div className="flex items-center justify-between gap-2">
+            <label className="block text-sm font-medium text-gray-700">
+              {filters.radiusEnabled
+                ? `Search Radius: ${filters.radius}m`
+                : 'Search Radius: Full city'}
+            </label>
+            <label className="flex items-center gap-2 text-xs text-gray-600 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={filters.radiusEnabled}
+                onChange={(e) => handleFilterChange('radiusEnabled', e.target.checked)}
+                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              Limit by radius
+            </label>
+          </div>
+          <input
+            type="range"
+            min={config.searchRadius.min}
+            max={config.searchRadius.max}
+            step={config.searchRadius.step}
+            value={filters.radius}
+            onChange={(e) => handleFilterChange('radius', parseInt(e.target.value))}
+            disabled={!filters.radiusEnabled}
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer text-gray-900 disabled:opacity-40 disabled:cursor-not-allowed"
+          />
           <div className="flex justify-between text-xs text-gray-500">
-            <span>100m</span>
-            <span>5km</span>
+            <span>{filters.radiusEnabled ? '100m' : 'Disabled'}</span>
+            <span>{filters.radiusEnabled ? '5km' : 'Searching whole city'}</span>
           </div>
         </div>
 
@@ -109,13 +138,13 @@ export default function SearchFilters({
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Keyword Search
         </label>
-            <input
-              type="text"
-              placeholder="e.g., pizza, coffee, 24/7, delivery..."
-              value={filters.keyword}
-              onChange={(e) => handleFilterChange('keyword', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-500"
-            />
+        <input
+          type="text"
+          placeholder="e.g., pizza, coffee, 24/7, delivery..."
+          value={filters.keyword}
+          onChange={(e) => handleFilterChange('keyword', e.target.value)}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-500"
+        />
       </div>
 
       {/* Expanded Filters */}
@@ -160,7 +189,7 @@ export default function SearchFilters({
       <div className="flex justify-end mt-6">
         <button
           onClick={onSearch}
-          disabled={isLoading}
+          disabled={isLoading || !filters.city}
           className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-6 py-2 rounded-md font-medium transition-colors flex items-center gap-2"
         >
           {isLoading ? (
